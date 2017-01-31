@@ -1,0 +1,4 @@
+ws_notifier:
+    channel: common
+    handler:
+        callback: 'ws.notifier' #Относится к getName, а не к имени сервиса

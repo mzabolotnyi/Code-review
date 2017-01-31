@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    {{ ws_client() }}
+    <style>
+
+        .chat-container {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        #chat-dashboard {
+            padding: 10px 0;
+        }
+
+        #message-text {
+            width: 85%;
+        }
+
+        #send-button {
+            width: 13%;
+        }
+
+        .message {
+            margin: 20px 0;
+        }
+
+        .message > span {
+            padding: 10px;
+            background: #e4f062;
+            max-width: 60%;
+            border-radius: 7px;
+            font-size: 14px;
+        }
+
+        .message.own {
+            text-align: right;
+        }
+
+        .message.own > span {
+            background: #40f095;
+        }
+
+        .notification {
+            padding: 10px 0;
+            font-size: 12px;
+            color: #999;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+
+    <h2>Testing websocket</h2>
+
+    {#<div id="chat-dashboard">#}
+        {#chat messages#}
+    {#</div>#}
+
+    {#<div>#}
+        {#<textarea id="message-text"></textarea>#}
+        {#<button id="send-button">Отправить</button>#}
+    {#</div>#}
+
+</div>
+
+<script type="application/javascript">
+
+    var webSocket = WS.connect("ws://10.10.10.10:3001");
+
+    webSocket.on("socket/connect", function (session) {
+
+        webSocket._session = session;
+
+        session.subscribe("common", function (uri, payload) {
+            console.log(JSON.parse(payload));
+        });
+    });
+
+//    webSocket.on("socket/disconnect", function (error) {
+//
+//        //error provides us with some insight into the disconnection: error.reason and error.code
+//        console.log("Disconnected for " + error.reason + " with code " + error.code);
+//    });
+//    webSocket.on("socket/message", function (msg) {
+//
+//        if (WS._session) {
+//            return;
+//        }
+//
+//        webSocket._session.publish("ws/session", msg);
+//    });
+//
+//    $('#send-button').click(function () {
+//
+//        var text = $('#message-text').val();
+//
+//        if (text && text != '') {
+//            webSocket.fire({type: "socket/message", data: text});
+//        }
+//    })
+
+</script>
+
+</body>
+</html>
+
