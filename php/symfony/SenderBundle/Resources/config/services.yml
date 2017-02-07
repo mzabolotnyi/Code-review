@@ -1,0 +1,10 @@
+services:
+    sender_service:
+        class:  ITDoors\SenderBundle\Services\SenderService
+        arguments: [@service_container]
+    sendpulse_service:
+        class:  ITDoors\SenderBundle\Services\SendPulseService
+        arguments: [@service_container]
+    epochta_service:
+        class:  ITDoors\SenderBundle\Services\EpochtaService
+        arguments: [@service_container]
